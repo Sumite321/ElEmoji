@@ -17,7 +17,8 @@ class ViewController: UIViewController {
     
     
     @IBOutlet weak var car: UIImageView!
-    let cars = ["car1.png","car2.png", "car3.png"]
+    var cars = ["car1.png","car2.png", "car3.png"]
+    let carArray = [1,2,3,4,5]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -50,8 +51,34 @@ class ViewController: UIViewController {
        
         
         
-        randomImgPicker() // getting a random image
+        //randomImgPicker() // getting a random image
+        /*
+        dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
         
+        dynamicItemBehavior = UIDynamicItemBehavior(items: [car])
+        self.dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: 300), for: car)
+        dynamicAnimator.addBehavior(dynamicItemBehavior)
+        */
+        
+        for index in 0...2{
+            
+            let delay = Double(carArray[index])
+            
+            let when = DispatchTime.now() + delay
+            
+            DispatchQueue.main.asyncAfter(deadline: when){
+                let carView = UIImageView(image:nil)
+                carView.image = UIImage(named: self.cars[index])
+                carView.frame = CGRect(x: 0, y: 300, width: 30 , height: 50)
+                self.view.addSubview(carView)
+                
+                self.dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
+                
+                self.dynamicItemBehavior = UIDynamicItemBehavior(items: [self.car])
+                self.dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0,y: 300), for:self.car)
+                self.dynamicAnimator.addBehavior(self.dynamicItemBehavior)
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
