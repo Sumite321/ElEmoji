@@ -47,6 +47,11 @@ class ViewController: UIViewController {
                       UIImage(named: "road20.png")!]
         
         roadImage.image = UIImage.animatedImage(with: imageArray, duration: 1)
+       
+        
+        
+        randomImgPicker() // getting a random image
+        
     }
     
     override func didReceiveMemoryWarning() {
