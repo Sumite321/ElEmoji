@@ -8,7 +8,7 @@
 import UIKit
 import Foundation
 
-//This protocol explains what actions this delegate will involve.
+
 
 class ViewController: UIViewController{
     
@@ -26,8 +26,10 @@ class ViewController: UIViewController{
     
     //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
+    var collisionBehavior: UICollisionBehavior!
     var dynamicItemBehavior: UIDynamicItemBehavior!
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -119,8 +121,10 @@ class ViewController: UIViewController{
             dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: speed), for: oCar)
             dynamicAnimator.addBehavior(dynamicItemBehavior)
             
+       
             
-            
+            //add the behaviour to the dynamic animator
+            dynamicAnimator.addBehavior(collisionBehavior)
             
         }
         
@@ -134,6 +138,22 @@ class ViewController: UIViewController{
         self.view.addSubview(over)
         
         self.view.bringSubview(toFront: over)
+        
+        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        button.backgroundColor = .green
+        button.setTitle("Play Again", for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        button.center = self.view.center
+        self.view.addSubview(button)
+    }
+    
+    @objc func buttonAction(sender: UIButton!) {
+        print("Button tapped")
+    }
+    
+    func startAgain(timer: Timer){
+        
+        
     }
     
 }

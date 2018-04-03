@@ -10,7 +10,7 @@ import UIKit
 
 class DraggedImageView: UIImageView {
     
-    var myDelegate: subviewDelegate?
+    var myDelegate: helperDelegate?
     
     //global variable
     var startLocation = CGPoint(x: 0, y: 0)
@@ -41,7 +41,7 @@ class DraggedImageView: UIImageView {
         
         self.center = newcenter
         
-        self.myDelegate?.changeSomething()
+        self.myDelegate?.setUpCollisionBoundary()
         
     }
     

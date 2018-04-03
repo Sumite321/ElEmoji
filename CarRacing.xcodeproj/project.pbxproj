@@ -42,6 +42,7 @@
 		84F2BABE2062A751006F6BF4 /* road7.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F2BAAB2062A751006F6BF4 /* road7.png */; };
 		84F2BABF2062A751006F6BF4 /* road12.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F2BAAC2062A751006F6BF4 /* road12.png */; };
 		84F2BAC02062A751006F6BF4 /* road13.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F2BAAD2062A751006F6BF4 /* road13.png */; };
+		84FBFE4D207415860039D24C /* game_over.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE4C207415860039D24C /* game_over.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		84F2BAAB2062A751006F6BF4 /* road7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road7.png; sourceTree = "<group>"; };
 		84F2BAAC2062A751006F6BF4 /* road12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road12.png; sourceTree = "<group>"; };
 		84F2BAAD2062A751006F6BF4 /* road13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road13.png; sourceTree = "<group>"; };
+		84FBFE4C207415860039D24C /* game_over.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = game_over.jpg; path = ../../../../Downloads/images/game_over.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				84F2BAA92062A750006F6BF4 /* road20.png */,
 				84F2BA692062A137006F6BF4 /* AppDelegate.swift */,
 				84F2BA6B2062A137006F6BF4 /* ViewController.swift */,
+				84FBFE4C207415860039D24C /* game_over.jpg */,
 				84F2BA6D2062A137006F6BF4 /* Main.storyboard */,
 				84F2BA702062A137006F6BF4 /* Assets.xcassets */,
 				84F2BA722062A137006F6BF4 /* LaunchScreen.storyboard */,
@@ -335,6 +338,7 @@
 				84F2BAAF2062A751006F6BF4 /* road18.png in Resources */,
 				84D07D182063EB95005F2472 /* car6.png in Resources */,
 				84F2BABB2062A751006F6BF4 /* road4.png in Resources */,
+				84FBFE4D207415860039D24C /* game_over.jpg in Resources */,
 				84D8D8962062BB7E0016C100 /* car0.png in Resources */,
 				84F2BA712062A137006F6BF4 /* Assets.xcassets in Resources */,
 				84D07D172063EB95005F2472 /* car3.png in Resources */,
