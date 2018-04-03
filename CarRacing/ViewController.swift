@@ -8,7 +8,9 @@
 import UIKit
 import Foundation
 
-class ViewController: UIViewController, subviewDelegate{
+//This protocol explains what actions this delegate will involve.
+
+class ViewController: UIViewController{
     
     //Images variables
     @IBOutlet weak var roadImage: UIImageView!
@@ -24,17 +26,8 @@ class ViewController: UIViewController, subviewDelegate{
     
     //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
-    var collisionBehavior: UICollisionBehavior!
     var dynamicItemBehavior: UIDynamicItemBehavior!
-    
-    func changeSomething() {
-        collisionBehavior.removeAllBoundaries()
-        //make the frame of the player car to the collision boundry of the obstacle car
-        collisionBehavior.addBoundary(withIdentifier: "barrier" as
-            NSCopying, for: UIBezierPath(rect: player.frame))
-    }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +72,7 @@ class ViewController: UIViewController, subviewDelegate{
         
         
         let date = Date().addingTimeInterval(0.5)
-        let timer = Timer(fireAt: date, interval: 1.7, target: self, selector: #selector(getCar), userInfo: nil, repeats: true)
+        let timer = Timer(fireAt: date, interval: 1.7, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         
         
@@ -91,7 +84,7 @@ class ViewController: UIViewController, subviewDelegate{
         //START > Behaviour code
         dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
         dynamicItemBehavior = UIDynamicItemBehavior()
-        collisionBehavior = UICollisionBehavior()
+        
         
     }
     
@@ -101,7 +94,7 @@ class ViewController: UIViewController, subviewDelegate{
     }
     
     
-    @objc func getCar() -> Void {
+    @objc func startObstacleAnimation() -> Void {
         
         
         let many = Int(arc4random_uniform(3))
@@ -126,13 +119,22 @@ class ViewController: UIViewController, subviewDelegate{
             dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: speed), for: oCar)
             dynamicAnimator.addBehavior(dynamicItemBehavior)
             
-            collisionBehavior.addItem(oCar)
             
-            //add the behaviour to the dynamic animator
-            dynamicAnimator.addBehavior(collisionBehavior)
+            
             
         }
         
     }
+    
+    func gameOver(timer: Timer) -> Void {
+        timer.invalidate() //Stop the loop that calls the getCar function
+        let over = UIImageView(image: nil)
+        over.image = UIImage(named: "game_over.jpg")
+        over.frame = UIScreen.main.bounds
+        self.view.addSubview(over)
+        
+        self.view.bringSubview(toFront: over)
+    }
+    
 }
 
