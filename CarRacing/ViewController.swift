@@ -6,26 +6,51 @@
 //  Copyright © 2018 Sumite Ramchande. All rights reserved.
 
 import UIKit
+import Foundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, subviewDelegate{
     
- 
+    //Images variables
     @IBOutlet weak var roadImage: UIImageView!
+    @IBOutlet weak var player: DraggedImageView!
     
+    
+    //display score and score variable
+    @IBOutlet weak var displayScore: UILabel!
+    var score = 0
+    
+    //obstacle cars variables
+    var obstacleCars: [UIImage]!
+    
+    //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
+    var collisionBehavior: UICollisionBehavior!
     var dynamicItemBehavior: UIDynamicItemBehavior!
     
+    func changeSomething() {
+        collisionBehavior.removeAllBoundaries()
+        //make the frame of the player car to the collision boundry of the obstacle car
+        collisionBehavior.addBoundary(withIdentifier: "barrier" as
+            NSCopying, for: UIBezierPath(rect: player.frame))
+    }
     
-    @IBOutlet weak var car: UIImageView!
-    var cars = ["car1.png","car2.png", "car3.png"]
-    let carArray = [1,2,3,4,5]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        //Animation of walking
+        //Assign viewController.swift as the delegate for the car image view
+        player.myDelegate = self
+        
+        obstacleCars = [UIImage(named: "car1.png")!,
+                        UIImage(named: "car2.png")!,
+                        UIImage(named: "car3.png")!,
+                        UIImage(named: "car4.png")!,
+                        UIImage(named: "car5.png")!,
+                        UIImage(named: "car6.png")!]
+        
+        //Create an array
+        //and add all the road images to it
         var imageArray: [UIImage]!
-        
         imageArray = [UIImage(named: "road1.png")!,
                       UIImage(named: "road2.png")!,
                       UIImage(named: "road3.png")!,
@@ -47,38 +72,27 @@ class ViewController: UIViewController {
                       UIImage(named: "road19.png")!,
                       UIImage(named: "road20.png")!]
         
-        roadImage.image = UIImage.animatedImage(with: imageArray, duration: 1)
-       
         
         
-        //randomImgPicker() // getting a random image
-        /*
-        dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
+        //animate the road images
+        roadImage?.image = UIImage.animatedImage(with: imageArray, duration: 0.4)
         
-        dynamicItemBehavior = UIDynamicItemBehavior(items: [car])
-        self.dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: 300), for: car)
-        dynamicAnimator.addBehavior(dynamicItemBehavior)
-        */
         
-        for index in 0...2{
-            
-            let delay = Double(carArray[index])
-            
-            let when = DispatchTime.now() + delay
-            
-            DispatchQueue.main.asyncAfter(deadline: when){
-                let carView = UIImageView(image:nil)
-                carView.image = UIImage(named: self.cars[index])
-                carView.frame = CGRect(x: 0, y: 300, width: 30 , height: 50)
-                self.view.addSubview(carView)
-                
-                self.dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
-                
-                self.dynamicItemBehavior = UIDynamicItemBehavior(items: [self.car])
-                self.dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0,y: 300), for:self.car)
-                self.dynamicAnimator.addBehavior(self.dynamicItemBehavior)
-            }
+        let date = Date().addingTimeInterval(0.5)
+        let timer = Timer(fireAt: date, interval: 1.7, target: self, selector: #selector(getCar), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
+        
+        
+        let when = DispatchTime.now() + 20
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.gameOver(timer: timer)
         }
+        
+        //START > Behaviour code
+        dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
+        dynamicItemBehavior = UIDynamicItemBehavior()
+        collisionBehavior = UICollisionBehavior()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,10 +100,39 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func randomImgPicker() {
-        let randomNumber = Int(arc4random_uniform(UInt32(cars.count))) // generating random number
-        car.image = UIImage(named: cars[randomNumber])
-    }
     
+    @objc func getCar() -> Void {
+        
+        
+        let many = Int(arc4random_uniform(3))
+        //Randomely select how many cars will appear at the same time out of three
+        for _ in 0...many {
+            
+            //add all the obstacles cars to the display
+            let oCar = UIImageView(image: nil)
+            let random = Int(arc4random_uniform(UInt32(243))) + 53
+            let c = Int(arc4random_uniform(6))
+            oCar.image = obstacleCars[c]
+            oCar.frame = CGRect(x: random, y: 0, width: 30, height: 50)
+            self.view.addSubview(oCar)
+            
+//            score = score + 1
+//            displayScore.text = String(score)
+            
+            dynamicItemBehavior.addItem(oCar)
+            
+            //Make the obstacle cars move down
+            let speed = Int(arc4random_uniform(140)) + 120
+            dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: speed), for: oCar)
+            dynamicAnimator.addBehavior(dynamicItemBehavior)
+            
+            collisionBehavior.addItem(oCar)
+            
+            //add the behaviour to the dynamic animator
+            dynamicAnimator.addBehavior(collisionBehavior)
+            
+        }
+        
+    }
 }
 
