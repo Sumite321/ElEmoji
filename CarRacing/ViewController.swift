@@ -36,6 +36,7 @@ class ViewController: UIViewController, helperDelegate{
     var count = 20
     var i = 0
     var popup:UILabel!
+    var showScore:UILabel!
     
     //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
@@ -58,15 +59,19 @@ class ViewController: UIViewController, helperDelegate{
         scoreText.tag = 300
         timerText.tag = 400
         //Assign viewController.swift as the delegate for the car image view
+        changePlayerImage()
+        
+    
+        
+        
+        // **********
         player.myDelegate = self
         player.tag = 200
         //player.center = self.view.c
-        obstacleCars = [UIImage(named: "car1.png")!,
-                        UIImage(named: "car2.png")!,
-                        UIImage(named: "car3.png")!,
-                        UIImage(named: "car4.png")!,
-                        UIImage(named: "car5.png")!,
-                        UIImage(named: "car6.png")!]
+        obstacleCars = [UIImage(named: "snow.png")!,
+                        UIImage(named: "rain.png")!,
+                        UIImage(named: "hammer.png")!
+                        ]
         
      
         
@@ -130,7 +135,7 @@ class ViewController: UIViewController, helperDelegate{
             
             let random = Int(arc4random_uniform(UInt32(243))) + 53
             let randomWidth = Int(arc4random_uniform(UInt32(15))) + 30
-            let c = Int(arc4random_uniform(6))
+            let c = Int(arc4random_uniform(3))
             obstacle.image = obstacleCars[c]
             obstacle.frame = CGRect(x: random, y: 0, width: randomWidth, height: 60)
             self.view.addSubview(obstacle)
@@ -156,17 +161,27 @@ class ViewController: UIViewController, helperDelegate{
         timer.invalidate() //Stop the loop that calls the startObstacleAnimation()
         timer1.invalidate()
         gameOverImage = UIImageView(image: nil)
-        gameOverImage.image = UIImage(named: "game_over.jpg")
+        gameOverImage.image = UIImage(named: "gameOver.png")
         gameOverImage.frame = UIScreen.main.bounds
         self.view.addSubview(gameOverImage)
         
         self.view.bringSubview(toFront: gameOverImage)
         
-        playAgainButton = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        playAgainButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width - 130, y: UIScreen.main.bounds.size.height - 90, width: 100, height: 50))
         playAgainButton.backgroundColor = .green
         playAgainButton.setTitle("Play Again", for: .normal)
         playAgainButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        playAgainButton.center = self.view.center
+        //playAgainButton.center = self.view.center
+//        // customise the view
+        showScore = UILabel(frame: CGRect(x:20, y:20, width:200, height:21))
+        //showScore.center = self.view.center
+        showScore.text = "Your final score is " + String(score)
+        showScore.textColor = UIColor.white
+        showScore.font = showScore.font.withSize(20)
+        
+        
+        // show on screen
+        self.view.addSubview(showScore)
         self.view.addSubview(playAgainButton)
     }
     
@@ -180,6 +195,7 @@ class ViewController: UIViewController, helperDelegate{
         //self.view.removeFromSuperview();
         playAgainButton.removeFromSuperview();
         gameOverImage.removeFromSuperview();
+        showScore.removeFromSuperview()
         startAgain()
     }
     
@@ -202,17 +218,18 @@ class ViewController: UIViewController, helperDelegate{
                 //print(score)
                 print("i is " ,i/500)
                 //print(score - (i/300))
-                
+                player.image = UIImage(named:"redface.png")
                 scoreText.text = String(score - (i/20))
             }
         
             
                 //view.removeFromSuperview()}
             if(view.tag == 50 && view.frame.origin.y > UIScreen.main.bounds.size.height-5){
-                
+                changePlayerImage()
                 view.removeFromSuperview()
             }
             scoreText.text = String(score - (i/20))
+            
         }
         
     }
@@ -232,5 +249,32 @@ class ViewController: UIViewController, helperDelegate{
             popup.removeFromSuperview()
             timer3 = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         }
+    }
+    
+    func changePlayerImage(){
+ 
+        var imageArray: [UIImage]!
+        imageArray = [UIImage(named: "frame1.gif")!,
+                      UIImage(named: "frame2.gif")!,
+                      UIImage(named: "frame3.gif")!,
+                      UIImage(named: "frame4.gif")!,
+                      UIImage(named: "frame5.gif")!,
+                      UIImage(named: "frame6.gif")!,
+                      UIImage(named: "frame7.gif")!,
+                      UIImage(named: "frame8.gif")!,
+                      UIImage(named: "frame9.gif")!,
+                      UIImage(named: "frame10.gif")!]
+        
+        
+        
+        //animate the road images
+        player.image = UIImage.animatedImage(with: imageArray, duration: 1.4)
+        
+        
+        
+        
+        // you can change the content mode:
+        player.contentMode = UIViewContentMode.scaleAspectFill
+        
     }
 }

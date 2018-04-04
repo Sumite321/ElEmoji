@@ -20,31 +20,35 @@ extension UIView {
         //Create an array
         //and add all the road images to it
         var imageArray: [UIImage]!
-        imageArray = [UIImage(named: "road1.png")!,
-                      UIImage(named: "road2.png")!,
-                      UIImage(named: "road3.png")!,
-                      UIImage(named: "road4.png")!,
-                      UIImage(named: "road5.png")!,
-                      UIImage(named: "road6.png")!,
-                      UIImage(named: "road7.png")!,
-                      UIImage(named: "road8.png")!,
-                      UIImage(named: "road9.png")!,
-                      UIImage(named: "road10.png")!,
-                      UIImage(named: "road11.png")!,
-                      UIImage(named: "road12.png")!,
-                      UIImage(named: "road13.png")!,
-                      UIImage(named: "road14.png")!,
-                      UIImage(named: "road15.png")!,
-                      UIImage(named: "road16.png")!,
-                      UIImage(named: "road17.png")!,
-                      UIImage(named: "road18.png")!,
-                      UIImage(named: "road19.png")!,
-                      UIImage(named: "road20.png")!]
+        imageArray = [UIImage(named: "color23.png")!,
+                      UIImage(named: "color22.png")!,
+                      UIImage(named: "color21.png")!,
+                      UIImage(named: "color20.png")!,
+                      UIImage(named: "color19.png")!,
+                      UIImage(named: "color18.png")!,
+                      UIImage(named: "color17.png")!,
+                      UIImage(named: "color16.png")!,
+                      UIImage(named: "color15.png")!,
+                    UIImage(named: "color14.png")!,
+                    UIImage(named: "color13.png")!,
+                    UIImage(named: "color12.png")!,
+                    UIImage(named: "color11.png")!,
+                    UIImage(named: "color10.png")!,
+                    UIImage(named: "color9.png")!,
+                    UIImage(named: "color8.png")!,
+                    UIImage(named: "color7.png")!,
+                    UIImage(named: "color6.png")!,
+                    UIImage(named: "color5.png")!,
+                    UIImage(named: "color4.png")!,
+                    UIImage(named: "color3.png")!,
+                    UIImage(named: "color2.png")!,
+                    UIImage(named: "color1.png")!
+        ]
         
         
         
         //animate the road images
-        imageViewBackground.image = UIImage.animatedImage(with: imageArray, duration: 0.4)
+        imageViewBackground.image = UIImage.animatedImage(with: imageArray, duration: 1.4)
         imageViewBackground.tag = 300
         
         
