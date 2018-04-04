@@ -8,9 +8,12 @@
 import UIKit
 import Foundation
 
+//This protocol explains what actions this delegate will involve.
+protocol helperDelegate {
+    func setUpCollisionBoundary()
+}
 
-
-class ViewController: UIViewController{
+class ViewController: UIViewController, helperDelegate{
     
     //Images variables
     @IBOutlet weak var roadImage: UIImageView!
@@ -28,7 +31,15 @@ class ViewController: UIViewController{
     var dynamicAnimator: UIDynamicAnimator!
     var collisionBehavior: UICollisionBehavior!
     var dynamicItemBehavior: UIDynamicItemBehavior!
-
+    
+    func setUpCollisionBoundary() {
+        // clear out all the boundaries from the behaviour
+        collisionBehavior.removeAllBoundaries()
+        // create a boundary around the player frame
+        collisionBehavior.addBoundary(withIdentifier: "boundary" as
+            NSCopying, for: UIBezierPath(rect: player.frame))
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +97,7 @@ class ViewController: UIViewController{
         //START > Behaviour code
         dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
         dynamicItemBehavior = UIDynamicItemBehavior()
-        
+        collisionBehavior = UICollisionBehavior()
         
     }
     
@@ -99,29 +110,29 @@ class ViewController: UIViewController{
     @objc func startObstacleAnimation() -> Void {
         
         
-        let many = Int(arc4random_uniform(3))
+        let tillThree = Int(arc4random_uniform(3))
         //Randomely select how many cars will appear at the same time out of three
-        for _ in 0...many {
+        for _ in 0...tillThree {
             
             //add all the obstacles cars to the display
-            let oCar = UIImageView(image: nil)
+            let obstacle = UIImageView(image: nil)
             let random = Int(arc4random_uniform(UInt32(243))) + 53
             let c = Int(arc4random_uniform(6))
-            oCar.image = obstacleCars[c]
-            oCar.frame = CGRect(x: random, y: 0, width: 30, height: 50)
-            self.view.addSubview(oCar)
+            obstacle.image = obstacleCars[c]
+            obstacle.frame = CGRect(x: random, y: 0, width: 30, height: 60)
+            self.view.addSubview(obstacle)
             
 //            score = score + 1
 //            displayScore.text = String(score)
             
-            dynamicItemBehavior.addItem(oCar)
+            dynamicItemBehavior.addItem(obstacle)
             
             //Make the obstacle cars move down
             let speed = Int(arc4random_uniform(140)) + 120
-            dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: speed), for: oCar)
+            dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: speed), for: obstacle)
             dynamicAnimator.addBehavior(dynamicItemBehavior)
             
-       
+            collisionBehavior.addItem(obstacle)
             
             //add the behaviour to the dynamic animator
             dynamicAnimator.addBehavior(collisionBehavior)
@@ -131,29 +142,29 @@ class ViewController: UIViewController{
     }
     
     func gameOver(timer: Timer) -> Void {
-        timer.invalidate() //Stop the loop that calls the getCar function
-        let over = UIImageView(image: nil)
-        over.image = UIImage(named: "game_over.jpg")
-        over.frame = UIScreen.main.bounds
-        self.view.addSubview(over)
+        timer.invalidate() //Stop the loop that calls the startObstacleAnimation()
+        let gameOverImage = UIImageView(image: nil)
+        gameOverImage.image = UIImage(named: "game_over.jpg")
+        gameOverImage.frame = UIScreen.main.bounds
+        self.view.addSubview(gameOverImage)
         
-        self.view.bringSubview(toFront: over)
+        self.view.bringSubview(toFront: gameOverImage)
         
-        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-        button.backgroundColor = .green
-        button.setTitle("Play Again", for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        button.center = self.view.center
-        self.view.addSubview(button)
+        let playAgain = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        playAgain.backgroundColor = .green
+        playAgain.setTitle("Play Again", for: .normal)
+        playAgain.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        playAgain.center = self.view.center
+        self.view.addSubview(playAgain)
     }
     
     @objc func buttonAction(sender: UIButton!) {
         print("Button tapped")
+        startAgain()
     }
     
-    func startAgain(timer: Timer){
-        
-        
+    func startAgain(){
+            self.viewDidLoad()
     }
     
 }
