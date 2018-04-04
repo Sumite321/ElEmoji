@@ -29,11 +29,13 @@ class ViewController: UIViewController, helperDelegate{
     // timer, game loop
     var timer: Timer!
     var timer1: Timer!
+    var timer3: Timer!
     var gameOverImage: UIImageView!
     
     var playAgainButton:UIButton!
     var count = 20
     var i = 0
+    var popup:UILabel!
     
     //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
@@ -68,25 +70,43 @@ class ViewController: UIViewController, helperDelegate{
         
      
         
-        let date = Date().addingTimeInterval(0.5)
+        // timer for obstacles to fall
+        let date = Date().addingTimeInterval(3.5)
         timer = Timer(fireAt: date, interval: 1.7, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         
+        // timer for continuos score update
         let date1 = Date().addingTimeInterval(0.5)
         timer1 = Timer(fireAt: date1, interval: 0, target: self, selector: #selector(calculateScore), userInfo: nil, repeats: true)
         RunLoop.main.add(timer1, forMode: RunLoopMode.commonModes)
         
-        let when = DispatchTime.now() + 20
+        // game over screen
+        let when = DispatchTime.now() + 22
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.gameOver(timer: self.timer)
         }
         
-        //START > Behaviour code
+        // behaviours
         dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
         dynamicItemBehavior = UIDynamicItemBehavior()
         collisionBehavior = UICollisionBehavior()
         
-        var timer3 = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        
+        
+        
+        // customise the view
+        popup = UILabel(frame: CGRect(x:0, y:0, width:280, height:31))
+        popup.center = self.view.center
+        popup.text = "You have 20 seconds"
+        popup.textColor = UIColor.white
+        popup.font = popup.font.withSize(30)
+        
+            
+            // show on screen
+            self.view.addSubview(popup)
+            
+            // timer for alert
+            Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.dismissAlert), userInfo: nil, repeats: false)
 
     }
     
@@ -109,15 +129,17 @@ class ViewController: UIViewController, helperDelegate{
             score += 5
             
             let random = Int(arc4random_uniform(UInt32(243))) + 53
+            let randomWidth = Int(arc4random_uniform(UInt32(15))) + 30
             let c = Int(arc4random_uniform(6))
             obstacle.image = obstacleCars[c]
-            obstacle.frame = CGRect(x: random, y: 0, width: 30, height: 60)
+            obstacle.frame = CGRect(x: random, y: 0, width: randomWidth, height: 60)
             self.view.addSubview(obstacle)
         
             dynamicItemBehavior.addItem(obstacle)
             
-            //Make the obstacle cars move down
-            let speed = Int(arc4random_uniform(140)) + 120
+            //Make the obstacle come down
+            // random speeds, some faster some slower
+            let speed = Int(arc4random_uniform(240)) + 120
             dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: speed), for: obstacle)
             dynamicAnimator.addBehavior(dynamicItemBehavior)
             
@@ -166,6 +188,7 @@ class ViewController: UIViewController, helperDelegate{
         score = 0
         i = 0
         count = 20
+        timer3.invalidate()
     }
     
     @objc func calculateScore(){
@@ -186,7 +209,7 @@ class ViewController: UIViewController, helperDelegate{
             
                 //view.removeFromSuperview()}
             if(view.tag == 50 && view.frame.origin.y > UIScreen.main.bounds.size.height-5){
-                print("You got a point")
+                
                 view.removeFromSuperview()
             }
             scoreText.text = String(score - (i/20))
@@ -195,12 +218,19 @@ class ViewController: UIViewController, helperDelegate{
     }
     
     @objc func update() {
-        
-        if(count > 0){
+        if(count >= 0){
             let minutes = String(count / 60)
             let seconds = String((count % 60))
             timerText.text = minutes + ":" + seconds
             count -= 1
         }
 }
+
+    
+    @objc func dismissAlert(){
+        if popup != nil { // Dismiss the view from here
+            popup.removeFromSuperview()
+            timer3 = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        }
+    }
 }
