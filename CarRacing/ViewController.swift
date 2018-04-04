@@ -27,6 +27,14 @@ class ViewController: UIViewController, helperDelegate{
     //obstacle cars variables
     var obstacleCars: [UIImage]!
     
+    // timer, game loop
+    var timer: Timer!
+    
+    var gameOverImage: UIImageView!
+    
+    var playAgainButton:UIButton!
+    
+    
     //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
     var collisionBehavior: UICollisionBehavior!
@@ -46,7 +54,7 @@ class ViewController: UIViewController, helperDelegate{
         
         //Assign viewController.swift as the delegate for the car image view
         player.myDelegate = self
-        
+        player.tag = 200
         obstacleCars = [UIImage(named: "car1.png")!,
                         UIImage(named: "car2.png")!,
                         UIImage(named: "car3.png")!,
@@ -82,16 +90,16 @@ class ViewController: UIViewController, helperDelegate{
         
         //animate the road images
         roadImage?.image = UIImage.animatedImage(with: imageArray, duration: 0.4)
-        
+        roadImage.tag = 300
         
         let date = Date().addingTimeInterval(0.5)
-        let timer = Timer(fireAt: date, interval: 1.7, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
+        timer = Timer(fireAt: date, interval: 1.7, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         
         
         let when = DispatchTime.now() + 20
         DispatchQueue.main.asyncAfter(deadline: when) {
-            self.gameOver(timer: timer)
+            self.gameOver(timer: self.timer)
         }
         
         //START > Behaviour code
@@ -143,27 +151,40 @@ class ViewController: UIViewController, helperDelegate{
     
     func gameOver(timer: Timer) -> Void {
         timer.invalidate() //Stop the loop that calls the startObstacleAnimation()
-        let gameOverImage = UIImageView(image: nil)
+        gameOverImage = UIImageView(image: nil)
         gameOverImage.image = UIImage(named: "game_over.jpg")
         gameOverImage.frame = UIScreen.main.bounds
         self.view.addSubview(gameOverImage)
         
         self.view.bringSubview(toFront: gameOverImage)
         
-        let playAgain = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-        playAgain.backgroundColor = .green
-        playAgain.setTitle("Play Again", for: .normal)
-        playAgain.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        playAgain.center = self.view.center
-        self.view.addSubview(playAgain)
+        playAgainButton = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        playAgainButton.backgroundColor = .green
+        playAgainButton.setTitle("Play Again", for: .normal)
+        playAgainButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        playAgainButton.center = self.view.center
+        self.view.addSubview(playAgainButton)
     }
     
     @objc func buttonAction(sender: UIButton!) {
         print("Button tapped")
+        
+        for view in self.view.subviews{
+            print(view.tag)
+            if(view.tag <= 100){
+            view.removeFromSuperview()
+            }
+            
+        }
+        //self.view.removeFromSuperview();
+        playAgainButton.removeFromSuperview();
+        gameOverImage.removeFromSuperview();
+        
         startAgain()
     }
     
     func startAgain(){
+        
             self.viewDidLoad()
     }
     
