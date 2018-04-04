@@ -16,12 +16,11 @@ protocol helperDelegate {
 class ViewController: UIViewController, helperDelegate{
     
     //Images variables
-    @IBOutlet weak var roadImage: UIImageView!
     @IBOutlet weak var player: DraggedImageView!
     
+    @IBOutlet weak var scoreText: UITextField!
     
-    //display score and score variable
-    @IBOutlet weak var displayScore: UILabel!
+    @IBOutlet weak var timerText: UITextField!
     var score = 0
     
     //obstacle cars variables
@@ -29,11 +28,12 @@ class ViewController: UIViewController, helperDelegate{
     
     // timer, game loop
     var timer: Timer!
-    
+    var timer1: Timer!
     var gameOverImage: UIImageView!
     
     var playAgainButton:UIButton!
-    
+    var count = 20
+    var i = 0
     
     //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
@@ -51,10 +51,14 @@ class ViewController: UIViewController, helperDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.addBackground()
+        scoreText.text = "0"
+        scoreText.tag = 300
+        timerText.tag = 400
         //Assign viewController.swift as the delegate for the car image view
         player.myDelegate = self
         player.tag = 200
+        //player.center = self.view.c
         obstacleCars = [UIImage(named: "car1.png")!,
                         UIImage(named: "car2.png")!,
                         UIImage(named: "car3.png")!,
@@ -62,40 +66,15 @@ class ViewController: UIViewController, helperDelegate{
                         UIImage(named: "car5.png")!,
                         UIImage(named: "car6.png")!]
         
-        //Create an array
-        //and add all the road images to it
-        var imageArray: [UIImage]!
-        imageArray = [UIImage(named: "road1.png")!,
-                      UIImage(named: "road2.png")!,
-                      UIImage(named: "road3.png")!,
-                      UIImage(named: "road4.png")!,
-                      UIImage(named: "road5.png")!,
-                      UIImage(named: "road6.png")!,
-                      UIImage(named: "road7.png")!,
-                      UIImage(named: "road8.png")!,
-                      UIImage(named: "road9.png")!,
-                      UIImage(named: "road10.png")!,
-                      UIImage(named: "road11.png")!,
-                      UIImage(named: "road12.png")!,
-                      UIImage(named: "road13.png")!,
-                      UIImage(named: "road14.png")!,
-                      UIImage(named: "road15.png")!,
-                      UIImage(named: "road16.png")!,
-                      UIImage(named: "road17.png")!,
-                      UIImage(named: "road18.png")!,
-                      UIImage(named: "road19.png")!,
-                      UIImage(named: "road20.png")!]
-        
-        
-        
-        //animate the road images
-        roadImage?.image = UIImage.animatedImage(with: imageArray, duration: 0.4)
-        roadImage.tag = 300
+     
         
         let date = Date().addingTimeInterval(0.5)
         timer = Timer(fireAt: date, interval: 1.7, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         
+        let date1 = Date().addingTimeInterval(0.5)
+        timer1 = Timer(fireAt: date1, interval: 0, target: self, selector: #selector(calculateScore), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer1, forMode: RunLoopMode.commonModes)
         
         let when = DispatchTime.now() + 20
         DispatchQueue.main.asyncAfter(deadline: when) {
@@ -107,6 +86,8 @@ class ViewController: UIViewController, helperDelegate{
         dynamicItemBehavior = UIDynamicItemBehavior()
         collisionBehavior = UICollisionBehavior()
         
+        var timer3 = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -124,15 +105,15 @@ class ViewController: UIViewController, helperDelegate{
             
             //add all the obstacles cars to the display
             let obstacle = UIImageView(image: nil)
+            obstacle.tag = 50
+            score += 5
+            
             let random = Int(arc4random_uniform(UInt32(243))) + 53
             let c = Int(arc4random_uniform(6))
             obstacle.image = obstacleCars[c]
             obstacle.frame = CGRect(x: random, y: 0, width: 30, height: 60)
             self.view.addSubview(obstacle)
-            
-//            score = score + 1
-//            displayScore.text = String(score)
-            
+        
             dynamicItemBehavior.addItem(obstacle)
             
             //Make the obstacle cars move down
@@ -144,13 +125,14 @@ class ViewController: UIViewController, helperDelegate{
             
             //add the behaviour to the dynamic animator
             dynamicAnimator.addBehavior(collisionBehavior)
-            
+           
         }
         
     }
     
     func gameOver(timer: Timer) -> Void {
         timer.invalidate() //Stop the loop that calls the startObstacleAnimation()
+        timer1.invalidate()
         gameOverImage = UIImageView(image: nil)
         gameOverImage.image = UIImage(named: "game_over.jpg")
         gameOverImage.frame = UIScreen.main.bounds
@@ -167,26 +149,58 @@ class ViewController: UIViewController, helperDelegate{
     }
     
     @objc func buttonAction(sender: UIButton!) {
-        print("Button tapped")
-        
         for view in self.view.subviews{
             print(view.tag)
             if(view.tag <= 100){
             view.removeFromSuperview()
             }
-            
         }
         //self.view.removeFromSuperview();
         playAgainButton.removeFromSuperview();
         gameOverImage.removeFromSuperview();
-        
         startAgain()
     }
     
     func startAgain(){
-        
-            self.viewDidLoad()
+        self.viewDidLoad()
+        score = 0
+        i = 0
+        count = 20
     }
     
+    @objc func calculateScore(){
+        
+    
+        for view in self.view.subviews{
+            if(view.tag == 50 && player.frame.intersects(view.frame)){
+                
+                //score = score - (i/1000)
+                i = i+1
+                //print(score)
+                print("i is " ,i/500)
+                //print(score - (i/300))
+                
+                scoreText.text = String(score - (i/20))
+            }
+        
+            
+                //view.removeFromSuperview()}
+            if(view.tag == 50 && view.frame.origin.y > UIScreen.main.bounds.size.height-5){
+                print("You got a point")
+                view.removeFromSuperview()
+            }
+            scoreText.text = String(score - (i/20))
+        }
+        
+    }
+    
+    @objc func update() {
+        
+        if(count > 0){
+            let minutes = String(count / 60)
+            let seconds = String((count % 60))
+            timerText.text = minutes + ":" + seconds
+            count -= 1
+        }
 }
-
+}
