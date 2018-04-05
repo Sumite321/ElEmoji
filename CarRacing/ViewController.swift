@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import AVFoundation
 
 //This protocol explains what actions this delegate will involve.
 protocol helperDelegate {
@@ -15,6 +16,15 @@ protocol helperDelegate {
 
 class ViewController: UIViewController, helperDelegate{
     
+    let beepSoundURL =  Bundle.main.url(forResource: "gameplay", withExtension: "wav")!
+    let hitBy =  Bundle.main.url(forResource: "lost", withExtension: "wav")!
+    let gameOverUrl =  Bundle.main.url(forResource: "gameover", withExtension: "wav")!
+    let secondLeftUrl =  Bundle.main.url(forResource: "sec", withExtension: "wav")!
+    
+    var beepPlayer = AVAudioPlayer()
+    var lostPlayer = AVAudioPlayer()
+    var gameOver = AVAudioPlayer()
+    var secondLeft = AVAudioPlayer()
     
     @IBOutlet weak var player: DraggedImageView!
     @IBOutlet weak var scoreText: UITextField!
@@ -51,6 +61,9 @@ class ViewController: UIViewController, helperDelegate{
     }
     
     
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addBackground()
@@ -73,7 +86,7 @@ class ViewController: UIViewController, helperDelegate{
                         ]
         
      
-        
+        playMySound()
         // timer for obstacles to fall
         let date = Date().addingTimeInterval(3.5)
         timer = Timer(fireAt: date, interval: 1.1, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
@@ -173,6 +186,8 @@ class ViewController: UIViewController, helperDelegate{
     func gameOver(timer: Timer) -> Void {
         timer.invalidate() //Stop the loop that calls the startObstacleAnimation()
         timer1.invalidate()
+        beepPlayer.stop()
+        gameOverSound()
         gameOverImage = UIImageView(image: nil)
         gameOverImage.image = UIImage(named: "gameOver.png")
         gameOverImage.frame = UIScreen.main.bounds
@@ -218,6 +233,7 @@ class ViewController: UIViewController, helperDelegate{
         i = 0
         count = 20
         timer3.invalidate()
+        playMySound()
     }
     
     @objc func calculateScore(){
@@ -233,6 +249,7 @@ class ViewController: UIViewController, helperDelegate{
                 //print(score - (i/300))
                 player.image = UIImage(named:"redface.png")
                 scoreText.text = String(score - (i/20))
+                playLostSound()
             }
         
             
@@ -255,6 +272,7 @@ class ViewController: UIViewController, helperDelegate{
                 showTimer.textColor = UIColor.red
                 count -= 1
                 showTimer.text = minutes + ":" + seconds
+                secondLeftSound()
             }else{
             showTimer.text = minutes + ":" + seconds
             count -= 1
@@ -295,5 +313,46 @@ class ViewController: UIViewController, helperDelegate{
         // you can change the content mode:
         player.contentMode = UIViewContentMode.scaleAspectFill
         
+    }
+    
+    func playMySound(){
+        do {
+            beepPlayer = try! AVAudioPlayer(contentsOf: beepSoundURL)
+        } catch {
+            print(error)
+        }
+        beepPlayer.prepareToPlay()
+        beepPlayer.play()
+        beepPlayer.numberOfLoops = -1
+    }
+    
+    func playLostSound(){
+        do {
+            lostPlayer = try! AVAudioPlayer(contentsOf: hitBy)
+        } catch {
+            print(error)
+        }
+        lostPlayer.prepareToPlay()
+        lostPlayer.play()
+    }
+    
+    func gameOverSound(){
+        do {
+            gameOver = try! AVAudioPlayer(contentsOf: gameOverUrl)
+        } catch {
+            print(error)
+        }
+        gameOver.prepareToPlay()
+        gameOver.play()
+    }
+    
+    func secondLeftSound(){
+        do {
+            secondLeft = try! AVAudioPlayer(contentsOf: secondLeftUrl)
+        } catch {
+            print(error)
+        }
+        secondLeft.prepareToPlay()
+        secondLeft.play()
     }
 }
