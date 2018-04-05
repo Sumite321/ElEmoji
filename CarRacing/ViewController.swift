@@ -15,9 +15,8 @@ protocol helperDelegate {
 
 class ViewController: UIViewController, helperDelegate{
     
-    //Images variables
-    @IBOutlet weak var player: DraggedImageView!
     
+    @IBOutlet weak var player: DraggedImageView!
     @IBOutlet weak var scoreText: UITextField!
     
     @IBOutlet weak var timerText: UITextField!
@@ -77,7 +76,7 @@ class ViewController: UIViewController, helperDelegate{
         
         // timer for obstacles to fall
         let date = Date().addingTimeInterval(3.5)
-        timer = Timer(fireAt: date, interval: 1.7, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
+        timer = Timer(fireAt: date, interval: 1.1, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         
         // timer for continuos score update
@@ -105,8 +104,15 @@ class ViewController: UIViewController, helperDelegate{
         popup.text = "You have 20 seconds"
         popup.textColor = UIColor.white
         popup.font = popup.font.withSize(30)
+        popup.alpha = 0
         
-            
+        popup.fadeIn(completion: {
+            (finished: Bool) -> Void in
+            self.popup.fadeOut()
+        })
+        
+        
+        
             // show on screen
             self.view.addSubview(popup)
             
@@ -238,8 +244,14 @@ class ViewController: UIViewController, helperDelegate{
         if(count >= 0){
             let minutes = String(count / 60)
             let seconds = String((count % 60))
+            if(count < 5){timerText.fadeIn()
+                timerText.textColor = UIColor.red
+                count -= 1
+                timerText.text = minutes + ":" + seconds
+            }else{
             timerText.text = minutes + ":" + seconds
             count -= 1
+                timerText.textColor = UIColor.black}
         }
 }
 

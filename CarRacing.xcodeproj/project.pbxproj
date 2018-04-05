@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84446882207566C300921772 /* UIViewFade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84446881207566C200921772 /* UIViewFade.swift */; };
+		8444688620759CB600921772 /* water.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8444688520759CB600921772 /* water.gif */; };
 		84D8D8942062BA4D0016C100 /* DraggedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D8D8932062BA4D0016C100 /* DraggedImageView.swift */; };
-		84D8D8962062BB7E0016C100 /* car0.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D8D8952062BB7E0016C100 /* car0.png */; };
 		84F2BA6A2062A137006F6BF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F2BA692062A137006F6BF4 /* AppDelegate.swift */; };
 		84F2BA6C2062A137006F6BF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F2BA6B2062A137006F6BF4 /* ViewController.swift */; };
 		84F2BA6F2062A137006F6BF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F2BA6D2062A137006F6BF4 /* Main.storyboard */; };
@@ -16,8 +17,6 @@
 		84F2BA742062A137006F6BF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F2BA722062A137006F6BF4 /* LaunchScreen.storyboard */; };
 		84F2BA7F2062A137006F6BF4 /* CarRacingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F2BA7E2062A137006F6BF4 /* CarRacingTests.swift */; };
 		84F2BA8A2062A137006F6BF4 /* CarRacingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F2BA892062A137006F6BF4 /* CarRacingUITests.swift */; };
-		84F2BA9A2062A73E006F6BF4 /* road1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F2BA992062A73E006F6BF4 /* road1.png */; };
-		84FBFE4D207415860039D24C /* game_over.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE4C207415860039D24C /* game_over.jpg */; };
 		84FBFE4F207500890039D24C /* responsiveBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBFE4E207500890039D24C /* responsiveBackground.swift */; };
 		84FBFE5A2075416C0039D24C /* frame10.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE502075416A0039D24C /* frame10.gif */; };
 		84FBFE5B2075416C0039D24C /* frame6.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE512075416B0039D24C /* frame6.gif */; };
@@ -29,7 +28,6 @@
 		84FBFE612075416C0039D24C /* frame7.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE572075416C0039D24C /* frame7.gif */; };
 		84FBFE622075416C0039D24C /* frame2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE582075416C0039D24C /* frame2.gif */; };
 		84FBFE632075416C0039D24C /* frame5.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE592075416C0039D24C /* frame5.gif */; };
-		84FBFE65207542600039D24C /* giphy-2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE642075425F0039D24C /* giphy-2.gif */; };
 		84FBFE7C20754A270039D24C /* angry2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE7A20754A270039D24C /* angry2.gif */; };
 		84FBFE7D20754A270039D24C /* angry1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE7B20754A270039D24C /* angry1.gif */; };
 		84FBFE8220754B0E0039D24C /* snow.png in Resources */ = {isa = PBXBuildFile; fileRef = 84FBFE7E20754B0D0039D24C /* snow.png */; };
@@ -83,8 +81,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		84446881207566C200921772 /* UIViewFade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewFade.swift; sourceTree = "<group>"; };
+		8444688520759CB600921772 /* water.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = water.gif; path = ../../../../Downloads/water.gif; sourceTree = "<group>"; };
 		84D8D8932062BA4D0016C100 /* DraggedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggedImageView.swift; sourceTree = "<group>"; };
-		84D8D8952062BB7E0016C100 /* car0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car0.png; path = ../../../Downloads/images/car0.png; sourceTree = "<group>"; };
 		84F2BA662062A137006F6BF4 /* CarRacing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRacing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F2BA692062A137006F6BF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F2BA6B2062A137006F6BF4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -98,8 +97,6 @@
 		84F2BA852062A137006F6BF4 /* CarRacingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarRacingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F2BA892062A137006F6BF4 /* CarRacingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarRacingUITests.swift; sourceTree = "<group>"; };
 		84F2BA8B2062A137006F6BF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84F2BA992062A73E006F6BF4 /* road1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road1.png; path = CarRacing/road1.png; sourceTree = "<group>"; };
-		84FBFE4C207415860039D24C /* game_over.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = game_over.jpg; path = ../../../../Downloads/images/game_over.jpg; sourceTree = "<group>"; };
 		84FBFE4E207500890039D24C /* responsiveBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = responsiveBackground.swift; sourceTree = "<group>"; };
 		84FBFE502075416A0039D24C /* frame10.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = frame10.gif; path = ../../../../Downloads/frame10.gif; sourceTree = "<group>"; };
 		84FBFE512075416B0039D24C /* frame6.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = frame6.gif; path = ../../../../Downloads/frame6.gif; sourceTree = "<group>"; };
@@ -111,7 +108,6 @@
 		84FBFE572075416C0039D24C /* frame7.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = frame7.gif; path = ../../../../Downloads/frame7.gif; sourceTree = "<group>"; };
 		84FBFE582075416C0039D24C /* frame2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = frame2.gif; path = ../../../../Downloads/frame2.gif; sourceTree = "<group>"; };
 		84FBFE592075416C0039D24C /* frame5.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = frame5.gif; path = ../../../../Downloads/frame5.gif; sourceTree = "<group>"; };
-		84FBFE642075425F0039D24C /* giphy-2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "giphy-2.gif"; path = "../../../../Downloads/giphy-2.gif"; sourceTree = "<group>"; };
 		84FBFE7A20754A270039D24C /* angry2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = angry2.gif; path = ../../../../Downloads/angry2.gif; sourceTree = "<group>"; };
 		84FBFE7B20754A270039D24C /* angry1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = angry1.gif; path = ../../../../Downloads/angry1.gif; sourceTree = "<group>"; };
 		84FBFE7E20754B0D0039D24C /* snow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = snow.png; path = ../../../../Downloads/snow.png; sourceTree = "<group>"; };
@@ -175,8 +171,6 @@
 		84F2BA5D2062A137006F6BF4 = {
 			isa = PBXGroup;
 			children = (
-				84D8D8952062BB7E0016C100 /* car0.png */,
-				84F2BA992062A73E006F6BF4 /* road1.png */,
 				84F2BA682062A137006F6BF4 /* CarRacing */,
 				84F2BA7D2062A137006F6BF4 /* CarRacingTests */,
 				84F2BA882062A137006F6BF4 /* CarRacingUITests */,
@@ -197,6 +191,7 @@
 		84F2BA682062A137006F6BF4 /* CarRacing */ = {
 			isa = PBXGroup;
 			children = (
+				8444688520759CB600921772 /* water.gif */,
 				84FBFEAE207551E00039D24C /* color15.png */,
 				84FBFEA9207551E00039D24C /* color16.png */,
 				84FBFEAD207551E00039D24C /* color17.png */,
@@ -223,6 +218,7 @@
 				84FBFE92207551070039D24C /* color14.png */,
 				84F2BA692062A137006F6BF4 /* AppDelegate.swift */,
 				84F2BA6B2062A137006F6BF4 /* ViewController.swift */,
+				84446881207566C200921772 /* UIViewFade.swift */,
 				84FBFEBA20755DE50039D24C /* hammer.png */,
 				84FBFEB8207559B20039D24C /* gameOver.png */,
 				84FBFE8620754BDD0039D24C /* redface.png */,
@@ -243,8 +239,6 @@
 				84FBFE4E207500890039D24C /* responsiveBackground.swift */,
 				84FBFE7B20754A270039D24C /* angry1.gif */,
 				84FBFE7A20754A270039D24C /* angry2.gif */,
-				84FBFE642075425F0039D24C /* giphy-2.gif */,
-				84FBFE4C207415860039D24C /* game_over.jpg */,
 				84F2BA6D2062A137006F6BF4 /* Main.storyboard */,
 				84F2BA702062A137006F6BF4 /* Assets.xcassets */,
 				84F2BA722062A137006F6BF4 /* LaunchScreen.storyboard */,
@@ -409,17 +403,15 @@
 				84FBFE7C20754A270039D24C /* angry2.gif in Resources */,
 				84FBFE9B207551070039D24C /* color.png in Resources */,
 				84FBFE8520754B0E0039D24C /* snow1.png in Resources */,
-				84FBFE65207542600039D24C /* giphy-2.gif in Resources */,
 				84FBFE9E207551070039D24C /* color7.png in Resources */,
 				84FBFEAF207551E00039D24C /* color19.png in Resources */,
 				84FBFEA4207551070039D24C /* color4.png in Resources */,
 				84FBFE9F207551070039D24C /* color5.png in Resources */,
 				84FBFE9A207551070039D24C /* color1.png in Resources */,
+				8444688620759CB600921772 /* water.gif in Resources */,
 				84FBFE8320754B0E0039D24C /* rain.png in Resources */,
 				84FBFE9D207551070039D24C /* color13.png in Resources */,
-				84FBFE4D207415860039D24C /* game_over.jpg in Resources */,
 				84FBFE8720754BDD0039D24C /* redface.png in Resources */,
-				84D8D8962062BB7E0016C100 /* car0.png in Resources */,
 				84F2BA712062A137006F6BF4 /* Assets.xcassets in Resources */,
 				84FBFEB3207551E00039D24C /* color21.png in Resources */,
 				84FBFEB5207551E00039D24C /* color22.png in Resources */,
@@ -431,7 +423,6 @@
 				84FBFEB4207551E00039D24C /* color23.png in Resources */,
 				84F2BA6F2062A137006F6BF4 /* Main.storyboard in Resources */,
 				84FBFEB9207559B30039D24C /* gameOver.png in Resources */,
-				84F2BA9A2062A73E006F6BF4 /* road1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +449,7 @@
 			files = (
 				84F2BA6C2062A137006F6BF4 /* ViewController.swift in Sources */,
 				84D8D8942062BA4D0016C100 /* DraggedImageView.swift in Sources */,
+				84446882207566C300921772 /* UIViewFade.swift in Sources */,
 				84F2BA6A2062A137006F6BF4 /* AppDelegate.swift in Sources */,
 				84FBFE4F207500890039D24C /* responsiveBackground.swift in Sources */,
 			);
