@@ -19,7 +19,7 @@ class ViewController: UIViewController, helperDelegate{
     @IBOutlet weak var player: DraggedImageView!
     @IBOutlet weak var scoreText: UITextField!
     
-    @IBOutlet weak var timerText: UITextField!
+    //@IBOutlet weak var timerText: UITextField!
     var score = 0
     
     //obstacle cars variables
@@ -36,7 +36,7 @@ class ViewController: UIViewController, helperDelegate{
     var i = 0
     var popup:UILabel!
     var showScore:UILabel!
-    
+    var showTimer:UILabel!
     //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
     var collisionBehavior: UICollisionBehavior!
@@ -56,7 +56,7 @@ class ViewController: UIViewController, helperDelegate{
         self.view.addBackground()
         scoreText.text = "0"
         scoreText.tag = 300
-        timerText.tag = 400
+        
         //Assign viewController.swift as the delegate for the car image view
         changePlayerImage()
         
@@ -68,8 +68,8 @@ class ViewController: UIViewController, helperDelegate{
         player.tag = 200
         //player.center = self.view.c
         obstacleCars = [UIImage(named: "snow.png")!,
-                        UIImage(named: "rain.png")!,
-                        UIImage(named: "hammer.png")!
+                        UIImage(named: "dynamite-hi.png")!,
+                        UIImage(named: "bomb17.png")!
                         ]
         
      
@@ -78,6 +78,13 @@ class ViewController: UIViewController, helperDelegate{
         let date = Date().addingTimeInterval(3.5)
         timer = Timer(fireAt: date, interval: 1.1, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
+        
+        
+        // timer at the top
+        showTimer = UILabel(frame: CGRect(x:UIScreen.main.bounds.size.width/2-40, y:40, width:280, height:31))
+        showTimer.font = showTimer.font.withSize(40)
+        
+        self.view.addSubview(showTimer)
         
         // timer for continuos score update
         let date1 = Date().addingTimeInterval(0.5)
@@ -244,14 +251,14 @@ class ViewController: UIViewController, helperDelegate{
         if(count >= 0){
             let minutes = String(count / 60)
             let seconds = String((count % 60))
-            if(count < 5){timerText.fadeIn()
-                timerText.textColor = UIColor.red
+            if(count < 5){
+                showTimer.textColor = UIColor.red
                 count -= 1
-                timerText.text = minutes + ":" + seconds
+                showTimer.text = minutes + ":" + seconds
             }else{
-            timerText.text = minutes + ":" + seconds
+            showTimer.text = minutes + ":" + seconds
             count -= 1
-                timerText.textColor = UIColor.black}
+                showTimer.textColor = UIColor.white}
         }
 }
 
