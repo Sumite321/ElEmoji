@@ -87,6 +87,7 @@ class ViewController: UIViewController, helperDelegate{
         
      
         playMySound()
+        playLostSound()
         // timer for obstacles to fall
         let date = Date().addingTimeInterval(3.5)
         timer = Timer(fireAt: date, interval: 1.1, target: self, selector: #selector(startObstacleAnimation), userInfo: nil, repeats: true)
@@ -245,11 +246,12 @@ class ViewController: UIViewController, helperDelegate{
                 //score = score - (i/1000)
                 i = i+1
                 //print(score)
-                print("i is " ,i/500)
+                //print("i is " ,i/500)
                 //print(score - (i/300))
                 player.image = UIImage(named:"redface.png")
                 scoreText.text = String(score - (i/20))
-                playLostSound()
+                lostPlayer.play()
+                //playLostSound()
             }
         
             
