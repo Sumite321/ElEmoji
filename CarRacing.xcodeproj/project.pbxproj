@@ -11,6 +11,7 @@
 		84368BC92083A7F100383A9F /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 84368BC82083A7F100383A9F /* home.png */; };
 		84368BCC2083C06500383A9F /* soundOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 84368BCA2083C06500383A9F /* soundOn.png */; };
 		84368BCD2083C06500383A9F /* soundOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 84368BCB2083C06500383A9F /* soundOff.png */; };
+		84368BCF2083C57400383A9F /* gameOver.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84368BCE2083C57300383A9F /* gameOver.jpg */; };
 		84446882207566C300921772 /* UIViewFade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84446881207566C200921772 /* UIViewFade.swift */; };
 		8444688620759CB600921772 /* water.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8444688520759CB600921772 /* water.gif */; };
 		8444688820763EED00921772 /* colour.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8444688720763EED00921772 /* colour.gif */; };
@@ -193,6 +194,7 @@
 		84368BC82083A7F100383A9F /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home.png; path = ../../../../Downloads/home.png; sourceTree = "<group>"; };
 		84368BCA2083C06500383A9F /* soundOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = soundOn.png; path = ../../../../Downloads/soundOn.png; sourceTree = "<group>"; };
 		84368BCB2083C06500383A9F /* soundOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = soundOff.png; path = ../../../../Downloads/soundOff.png; sourceTree = "<group>"; };
+		84368BCE2083C57300383A9F /* gameOver.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = gameOver.jpg; path = ../../../../Downloads/gameOver.jpg; sourceTree = "<group>"; };
 		84446881207566C200921772 /* UIViewFade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewFade.swift; sourceTree = "<group>"; };
 		8444688520759CB600921772 /* water.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = water.gif; path = ../../../../Downloads/water.gif; sourceTree = "<group>"; };
 		8444688720763EED00921772 /* colour.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = colour.gif; path = ../../../../Downloads/colour.gif; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 				84FBFE552075416B0039D24C /* frame9.gif */,
 				84FBFE502075416A0039D24C /* frame10.gif */,
 				84FBFE4E207500890039D24C /* responsiveBackground.swift */,
+				84368BCE2083C57300383A9F /* gameOver.jpg */,
 				84368BCB2083C06500383A9F /* soundOff.png */,
 				84368BCA2083C06500383A9F /* soundOn.png */,
 				84368BC82083A7F100383A9F /* home.png */,
@@ -725,6 +728,7 @@
 				84FBFEBB20755DE50039D24C /* hammer.png in Resources */,
 				848214392076CCA1001607B0 /* sec.wav in Resources */,
 				8444693F2076441800921772 /* c86.gif in Resources */,
+				84368BCF2083C57400383A9F /* gameOver.jpg in Resources */,
 				844469462076441800921772 /* c89.gif in Resources */,
 				848214332076C8AF001607B0 /* gameplay.wav in Resources */,
 				844469152076429300921772 /* c33.gif in Resources */,

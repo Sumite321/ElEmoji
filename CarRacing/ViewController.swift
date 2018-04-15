@@ -28,7 +28,6 @@ class ViewController: UIViewController, helperDelegate{
     var secondLeft = AVAudioPlayer()
     
     @IBOutlet weak var player: DraggedImageView!
-    @IBOutlet weak var scoreText: UITextField!
     
     //@IBOutlet weak var timerText: UITextField!
     var score = 0
@@ -45,18 +44,21 @@ class ViewController: UIViewController, helperDelegate{
     var playAgainButton:UIButton!
     var playButton:UIButton!
     let homeImageTop = UIImageView(frame: CGRect(x:30, y:40, width:30, height:40))
-    let soundIcon = UIImageView(frame: CGRect(x:70, y:40, width:30, height:40))
+    let soundIcon = UIImageView(frame: CGRect(x:70, y:45, width:30, height:30))
 
     var count = 20
     var i = 0
     var popup:UILabel!
     var showScore:UILabel!
     var showTimer:UILabel!
+    var scoreText:UILabel!
     //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
     var collisionBehavior: UICollisionBehavior!
     var dynamicItemBehavior: UIDynamicItemBehavior!
     var ended = false
+    var mute = false
+    
     func setUpCollisionBoundary() {
         // clear out all the boundaries from the behaviour
         collisionBehavior.removeAllBoundaries()
@@ -74,6 +76,7 @@ class ViewController: UIViewController, helperDelegate{
         self.view.addHomeBackground()
         drawPlayButton()
         drawHomeImage()
+        drawSoundIcon()
             
     }
     
@@ -127,20 +130,22 @@ class ViewController: UIViewController, helperDelegate{
         beepPlayer.stop()
         gameOverSound()
         gameOverImage = UIImageView(image: nil)
-        gameOverImage.image = UIImage(named: "gameOver.png")
+        gameOverImage.image = UIImage(named: "gameOver.jpg")
         gameOverImage.frame = UIScreen.main.bounds
         self.view.addSubview(gameOverImage)
         
         self.view.bringSubview(toFront: gameOverImage)
         
         playAgainButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width - 130, y: UIScreen.main.bounds.size.height - 90, width: 100, height: 50))
-        playAgainButton.backgroundColor = .green
+        playAgainButton.backgroundColor = .orange
+        playAgainButton.layer.cornerRadius = 0.2 * playAgainButton.bounds.size.width
+        playAgainButton.clipsToBounds = true
         playAgainButton.setTitle("Play Again", for: .normal)
         playAgainButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         //playAgainButton.center = self.view.center
 //        // customise the view
         showScore = UILabel(frame: CGRect(x:20, y:20, width:200, height:21))
-        //showScore.center = self.view.center
+        showScore.center = self.view.center
         showScore.text = "Your final score is " + String(score)
         showScore.textColor = UIColor.white
         showScore.font = showScore.font.withSize(20)
@@ -163,7 +168,7 @@ class ViewController: UIViewController, helperDelegate{
         playAgainButton.removeFromSuperview();
         gameOverImage.removeFromSuperview();
         showScore.removeFromSuperview()
-        
+        scoreText.removeFromSuperview()
         startAgain()
     }
     
@@ -189,6 +194,13 @@ class ViewController: UIViewController, helperDelegate{
         playButton.removeFromSuperview()
         
         self.view.addBackground()
+        
+        // score at the bottom
+        scoreText = UILabel(frame: CGRect(x:UIScreen.main.bounds.size.width-140, y:UIScreen.main.bounds.size.height - 80, width:180, height:31))
+        scoreText.font = scoreText.font.withSize(40)
+        
+        self.view.addSubview(scoreText)
+        
         scoreText.text = "0"
         scoreText.tag = 300
         
@@ -218,6 +230,8 @@ class ViewController: UIViewController, helperDelegate{
         showTimer.font = showTimer.font.withSize(40)
         
         self.view.addSubview(showTimer)
+        
+        
         
         // timer for continuos score update
         let date1 = Date().addingTimeInterval(0.5)
@@ -385,10 +399,13 @@ class ViewController: UIViewController, helperDelegate{
 
         
         playButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width - 130, y: UIScreen.main.bounds.size.height - 90, width: 100, height: 50))
-        playButton.backgroundColor = .yellow 
+        playButton.backgroundColor = .orange
+        playButton.layer.cornerRadius = 0.2 * playButton.bounds.size.width
+        playButton.clipsToBounds = true
         playButton.setTitle("Play", for: .normal)
         playButton.center = self.view.center
         playButton.addTarget(self, action: #selector(buttonPlay), for: .touchUpInside)
+        
         
         self.view.addSubview(playButton)
     }
@@ -439,20 +456,33 @@ class ViewController: UIViewController, helperDelegate{
     
     func drawSoundIcon(){
         
-        homeImageTop.image = UIImage(named:"soundOn.png" )
-        homeImageTop.tag = 700
-        //let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tappedMe))
+        soundIcon.image = UIImage(named:"soundOn.png" )
+        soundIcon.tag = 800
+        let tap = UITapGestureRecognizer(target: self, action: #selector(muteSound))
         
-        //homeImageTop.addGestureRecognizer(tap)
-        homeImageTop.isUserInteractionEnabled = true
+        soundIcon.addGestureRecognizer(tap)
+        soundIcon.isUserInteractionEnabled = true
         
         // you can change the content mode:
-        homeImageTop.contentMode = UIViewContentMode.scaleAspectFill
+        soundIcon.contentMode = UIViewContentMode.scaleAspectFill
         
         
-        self.view.addSubview(homeImageTop)
-        self.view.sendSubview(toBack: homeImageTop)
+        self.view.addSubview(soundIcon)
+        self.view.sendSubview(toBack: soundIcon)
+    }
+    
+    @objc func muteSound(){
+    
         
+        if(mute){
+            soundIcon.image = UIImage(named :"soundOn.png")
+            beepPlayer.play()
+            mute = false
+        }else{
+        soundIcon.image = UIImage(named :"soundOff.png")
+        beepPlayer.stop()
+        mute = true
+        }
         
     }
     
