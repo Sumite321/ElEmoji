@@ -34,7 +34,7 @@ class DraggedImageView: UIImageView {
         // Constrain movement into parent bounds
         let halfx: Float = Float(bounds.midX)
         newcenter.x = CGFloat(max(halfx, Float(newcenter.x)))
-        newcenter.x = min((superview?.bounds.size.width)! - 80 - CGFloat(halfx), CGFloat(newcenter.x)) + 40
+        newcenter.x = min((superview?.bounds.size.width)! - CGFloat(halfx), CGFloat(newcenter.x))
         let halfy: Float = Float(bounds.midY)
         newcenter.y = CGFloat(max(halfy, Float(newcenter.y)))
         newcenter.y = min((superview?.bounds.size.height)! - CGFloat(halfy), CGFloat(newcenter.y))

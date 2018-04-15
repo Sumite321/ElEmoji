@@ -144,9 +144,13 @@ class ViewController: UIViewController, helperDelegate{
         playAgainButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         //playAgainButton.center = self.view.center
 //        // customise the view
-        showScore = UILabel(frame: CGRect(x:20, y:20, width:200, height:21))
+        showScore = UILabel(frame: CGRect(x:20, y:20, width:250, height:51))
         showScore.center = self.view.center
-        showScore.text = "Your final score is " + String(score)
+            showScore.text = " Your final score is " + scoreText.text!
+            //showScore.font = showScore.font.withSize(40)
+            showScore.backgroundColor = .orange
+
+           showScore.font = UIFont(name: "Verdana-Bold", size: 28.0)
         showScore.textColor = UIColor.white
         showScore.font = showScore.font.withSize(20)
         
@@ -196,7 +200,7 @@ class ViewController: UIViewController, helperDelegate{
         self.view.addBackground()
         
         // score at the bottom
-        scoreText = UILabel(frame: CGRect(x:UIScreen.main.bounds.size.width-140, y:UIScreen.main.bounds.size.height - 80, width:180, height:31))
+        scoreText = UILabel(frame: CGRect(x:UIScreen.main.bounds.size.width-90, y:UIScreen.main.bounds.size.height - 80, width:180, height:31))
         scoreText.font = scoreText.font.withSize(40)
         
         self.view.addSubview(scoreText)
@@ -257,7 +261,7 @@ class ViewController: UIViewController, helperDelegate{
         popup.center = self.view.center
         popup.text = "You have 20 seconds"
         popup.textColor = UIColor.white
-        popup.font = popup.font.withSize(30)
+        popup.font = UIFont(name: "Verdana-Bold", size: 23.0)
         popup.alpha = 0
         
         popup.fadeIn(completion: {
@@ -286,7 +290,7 @@ class ViewController: UIViewController, helperDelegate{
                 //print("i is " ,i/500)
                 //print(score - (i/300))
                 player.image = UIImage(named:"redface.png")
-                scoreText.text = String(score - (i/20))
+                scoreText.text = String(score - (i/40))
                 lostPlayer.play()
                 //playLostSound()
             }
@@ -297,7 +301,7 @@ class ViewController: UIViewController, helperDelegate{
                 changePlayerImage()
                 view.removeFromSuperview()
             }
-            scoreText.text = String(score - (i/20))
+            scoreText.text = String(score - (i/40))
             
         }
         
