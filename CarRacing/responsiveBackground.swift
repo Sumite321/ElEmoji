@@ -8,13 +8,42 @@
 
 import UIKit
 
+// screen width and height:
+let width = UIScreen.main.bounds.size.width
+let height = UIScreen.main.bounds.size.height
+let imageViewBackground = UIImageView(frame: CGRect(x:0, y:0, width:width, height:height))
+let homeImage = UIImageView(frame: CGRect(x:0, y:0, width:width, height:height))
+
+
+
 extension UIView {
-    func addBackground() {
-        // screen width and height:
-        let width = UIScreen.main.bounds.size.width
-        let height = UIScreen.main.bounds.size.height
+    
+   
+    
+    func removeHomeImage(){
         
-        let imageViewBackground = UIImageView(frame: CGRect(x:0, y:0, width:width, height:height))
+            homeImage.removeFromSuperview()
+        
+    }
+    
+    func addHomeBackground(){
+        homeImage.image = UIImage(named:"emoji.jpg" )
+        homeImage.tag = 600
+        
+        
+        
+        // you can change the content mode:
+        homeImage.contentMode = UIViewContentMode.scaleAspectFill
+        
+        self.addSubview(homeImage)
+        self.sendSubview(toBack: homeImage)
+        
+    }
+    
+    func addBackground() {
+      
+        
+        //let imageViewBackground = UIImageView(frame: CGRect(x:0, y:0, width:width, height:height))
         //imageViewBackground.image = UIImage(named: "YOUR IMAGE NAME GOES HERE")
         
         //Create an array
@@ -116,4 +145,13 @@ extension UIView {
         
         self.addSubview(imageViewBackground)
         self.sendSubview(toBack: imageViewBackground)
-    }}
+    }
+    
+    func removeAnimatedImage(){
+        
+        imageViewBackground.removeFromSuperview()
+    }
+
+}
+
+

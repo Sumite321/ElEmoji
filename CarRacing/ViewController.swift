@@ -14,6 +14,7 @@ protocol helperDelegate {
     func setUpCollisionBoundary()
 }
 
+
 class ViewController: UIViewController, helperDelegate{
     
     let beepSoundURL =  Bundle.main.url(forResource: "gameplay", withExtension: "wav")!
@@ -42,6 +43,10 @@ class ViewController: UIViewController, helperDelegate{
     var gameOverImage: UIImageView!
     
     var playAgainButton:UIButton!
+    var playButton:UIButton!
+    let homeImageTop = UIImageView(frame: CGRect(x:30, y:40, width:30, height:40))
+    let soundIcon = UIImageView(frame: CGRect(x:70, y:40, width:30, height:40))
+
     var count = 20
     var i = 0
     var popup:UILabel!
@@ -51,7 +56,7 @@ class ViewController: UIViewController, helperDelegate{
     var dynamicAnimator: UIDynamicAnimator!
     var collisionBehavior: UICollisionBehavior!
     var dynamicItemBehavior: UIDynamicItemBehavior!
-    
+    var ended = false
     func setUpCollisionBoundary() {
         // clear out all the boundaries from the behaviour
         collisionBehavior.removeAllBoundaries()
@@ -66,15 +71,129 @@ class ViewController: UIViewController, helperDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addHomeBackground()
+        drawPlayButton()
+        drawHomeImage()
+            
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    @objc func startObstacleAnimation() -> Void {
+        
+        
+        let tillThree = Int(arc4random_uniform(3))
+        //Randomely select how many cars will appear at the same time out of three
+        for _ in 0...tillThree {
+            
+            //add all the obstacles cars to the display
+            let obstacle = UIImageView(image: nil)
+            obstacle.tag = 50
+            score += 5
+            
+            let random = Int(arc4random_uniform(UInt32(243))) + 53
+            let randomWidth = Int(arc4random_uniform(UInt32(15))) + 30
+            let c = Int(arc4random_uniform(3))
+            obstacle.image = obstacleCars[c]
+            obstacle.frame = CGRect(x: random, y: 0, width: randomWidth, height: 60)
+            self.view.addSubview(obstacle)
+        
+            dynamicItemBehavior.addItem(obstacle)
+            
+            //Make the obstacle come down
+            // random speeds, some faster some slower
+            let speed = Int(arc4random_uniform(240)) + 120
+            dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: speed), for: obstacle)
+            dynamicAnimator.addBehavior(dynamicItemBehavior)
+            
+            collisionBehavior.addItem(obstacle)
+            
+            //add the behaviour to the dynamic animator
+            dynamicAnimator.addBehavior(collisionBehavior)
+           
+        }
+        
+    }
+    
+    func gameOver(timer: Timer) -> Void {
+        
+        if(!ended){
+        timer.invalidate() //Stop the loop that calls the startObstacleAnimation()
+        timer1.invalidate()
+        beepPlayer.stop()
+        gameOverSound()
+        gameOverImage = UIImageView(image: nil)
+        gameOverImage.image = UIImage(named: "gameOver.png")
+        gameOverImage.frame = UIScreen.main.bounds
+        self.view.addSubview(gameOverImage)
+        
+        self.view.bringSubview(toFront: gameOverImage)
+        
+        playAgainButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width - 130, y: UIScreen.main.bounds.size.height - 90, width: 100, height: 50))
+        playAgainButton.backgroundColor = .green
+        playAgainButton.setTitle("Play Again", for: .normal)
+        playAgainButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        //playAgainButton.center = self.view.center
+//        // customise the view
+        showScore = UILabel(frame: CGRect(x:20, y:20, width:200, height:21))
+        //showScore.center = self.view.center
+        showScore.text = "Your final score is " + String(score)
+        showScore.textColor = UIColor.white
+        showScore.font = showScore.font.withSize(20)
+        
+        
+        // show on screen
+        self.view.addSubview(showScore)
+        self.view.addSubview(playAgainButton)
+        }
+    }
+    
+    @objc func buttonAction(sender: UIButton!) {
+        for view in self.view.subviews{
+            print(view.tag)
+            if(view.tag <= 100){
+            view.removeFromSuperview()
+            }
+        }
+        //self.view.removeFromSuperview();
+        playAgainButton.removeFromSuperview();
+        gameOverImage.removeFromSuperview();
+        showScore.removeFromSuperview()
+        
+        startAgain()
+    }
+    
+    @objc func buttonPlay(sender: UIButton!){
+        runGameLoop()
+        
+    }
+    
+    func startAgain(){
+        
+        score = 0
+        i = 0
+        count = 20
+        timer3.invalidate()
+        playMySound()
+        runGameLoop()
+    }
+    
+    func runGameLoop(){
+        
+        
+        self.view.removeHomeImage()
+        playButton.removeFromSuperview()
+        
         self.view.addBackground()
         scoreText.text = "0"
         scoreText.tag = 300
         
         //Assign viewController.swift as the delegate for the car image view
         changePlayerImage()
-        
-    
-        
         
         // **********
         player.myDelegate = self
@@ -83,9 +202,9 @@ class ViewController: UIViewController, helperDelegate{
         obstacleCars = [UIImage(named: "snow.png")!,
                         UIImage(named: "dynamite-hi.png")!,
                         UIImage(named: "bomb17.png")!
-                        ]
+        ]
         
-     
+        
         playMySound()
         playLostSound()
         // timer for obstacles to fall
@@ -134,107 +253,11 @@ class ViewController: UIViewController, helperDelegate{
         
         
         
-            // show on screen
-            self.view.addSubview(popup)
-            
-            // timer for alert
-            Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.dismissAlert), userInfo: nil, repeats: false)
-
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    @objc func startObstacleAnimation() -> Void {
-        
-        
-        let tillThree = Int(arc4random_uniform(3))
-        //Randomely select how many cars will appear at the same time out of three
-        for _ in 0...tillThree {
-            
-            //add all the obstacles cars to the display
-            let obstacle = UIImageView(image: nil)
-            obstacle.tag = 50
-            score += 5
-            
-            let random = Int(arc4random_uniform(UInt32(243))) + 53
-            let randomWidth = Int(arc4random_uniform(UInt32(15))) + 30
-            let c = Int(arc4random_uniform(3))
-            obstacle.image = obstacleCars[c]
-            obstacle.frame = CGRect(x: random, y: 0, width: randomWidth, height: 60)
-            self.view.addSubview(obstacle)
-        
-            dynamicItemBehavior.addItem(obstacle)
-            
-            //Make the obstacle come down
-            // random speeds, some faster some slower
-            let speed = Int(arc4random_uniform(240)) + 120
-            dynamicItemBehavior.addLinearVelocity(CGPoint(x: 0, y: speed), for: obstacle)
-            dynamicAnimator.addBehavior(dynamicItemBehavior)
-            
-            collisionBehavior.addItem(obstacle)
-            
-            //add the behaviour to the dynamic animator
-            dynamicAnimator.addBehavior(collisionBehavior)
-           
-        }
-        
-    }
-    
-    func gameOver(timer: Timer) -> Void {
-        timer.invalidate() //Stop the loop that calls the startObstacleAnimation()
-        timer1.invalidate()
-        beepPlayer.stop()
-        gameOverSound()
-        gameOverImage = UIImageView(image: nil)
-        gameOverImage.image = UIImage(named: "gameOver.png")
-        gameOverImage.frame = UIScreen.main.bounds
-        self.view.addSubview(gameOverImage)
-        
-        self.view.bringSubview(toFront: gameOverImage)
-        
-        playAgainButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width - 130, y: UIScreen.main.bounds.size.height - 90, width: 100, height: 50))
-        playAgainButton.backgroundColor = .green
-        playAgainButton.setTitle("Play Again", for: .normal)
-        playAgainButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        //playAgainButton.center = self.view.center
-//        // customise the view
-        showScore = UILabel(frame: CGRect(x:20, y:20, width:200, height:21))
-        //showScore.center = self.view.center
-        showScore.text = "Your final score is " + String(score)
-        showScore.textColor = UIColor.white
-        showScore.font = showScore.font.withSize(20)
-        
-        
         // show on screen
-        self.view.addSubview(showScore)
-        self.view.addSubview(playAgainButton)
-    }
-    
-    @objc func buttonAction(sender: UIButton!) {
-        for view in self.view.subviews{
-            print(view.tag)
-            if(view.tag <= 100){
-            view.removeFromSuperview()
-            }
-        }
-        //self.view.removeFromSuperview();
-        playAgainButton.removeFromSuperview();
-        gameOverImage.removeFromSuperview();
-        showScore.removeFromSuperview()
-        startAgain()
-    }
-    
-    func startAgain(){
-        self.viewDidLoad()
-        score = 0
-        i = 0
-        count = 20
-        timer3.invalidate()
-        playMySound()
+        self.view.addSubview(popup)
+        
+        // timer for alert
+        Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.dismissAlert), userInfo: nil, repeats: false)
     }
     
     @objc func calculateScore(){
@@ -357,4 +380,80 @@ class ViewController: UIViewController, helperDelegate{
         secondLeft.prepareToPlay()
         secondLeft.play()
     }
+    
+    func drawPlayButton(){
+
+        
+        playButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.size.width - 130, y: UIScreen.main.bounds.size.height - 90, width: 100, height: 50))
+        playButton.backgroundColor = .yellow 
+        playButton.setTitle("Play", for: .normal)
+        playButton.center = self.view.center
+        playButton.addTarget(self, action: #selector(buttonPlay), for: .touchUpInside)
+        
+        self.view.addSubview(playButton)
+    }
+    
+//    @objc func tappedMe()
+//    {
+//        // remove all the objects
+//        for view in self.view.subviews{
+//            print(view.tag)
+//            if(view.tag <= 100){
+//                view.removeFromSuperview()
+//            }
+//        }
+//        // remove the animated image
+//        self.view.removeAnimatedImage()
+//        self.view.addHomeBackground()
+//
+//        showTimer.removeFromSuperview()
+//        showScore.removeFromSuperview()
+//
+//
+//        ended = true
+//
+//        // draw the play button
+//        drawPlayButton()
+//
+//
+//
+//
+//    }
+    
+    func drawHomeImage(){
+        
+        homeImageTop.image = UIImage(named:"home.png" )
+        homeImageTop.tag = 700
+        //let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tappedMe))
+        
+        //homeImageTop.addGestureRecognizer(tap)
+        homeImageTop.isUserInteractionEnabled = true
+        
+        // you can change the content mode:
+        homeImageTop.contentMode = UIViewContentMode.scaleAspectFill
+        
+        
+        self.view.addSubview(homeImageTop)
+        self.view.sendSubview(toBack: homeImageTop)
+    }
+    
+    func drawSoundIcon(){
+        
+        homeImageTop.image = UIImage(named:"soundOn.png" )
+        homeImageTop.tag = 700
+        //let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tappedMe))
+        
+        //homeImageTop.addGestureRecognizer(tap)
+        homeImageTop.isUserInteractionEnabled = true
+        
+        // you can change the content mode:
+        homeImageTop.contentMode = UIViewContentMode.scaleAspectFill
+        
+        
+        self.view.addSubview(homeImageTop)
+        self.view.sendSubview(toBack: homeImageTop)
+        
+        
+    }
+    
 }
