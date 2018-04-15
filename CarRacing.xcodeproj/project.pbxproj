@@ -12,6 +12,11 @@
 		84368BCC2083C06500383A9F /* soundOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 84368BCA2083C06500383A9F /* soundOn.png */; };
 		84368BCD2083C06500383A9F /* soundOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 84368BCB2083C06500383A9F /* soundOff.png */; };
 		84368BCF2083C57400383A9F /* gameOver.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84368BCE2083C57300383A9F /* gameOver.jpg */; };
+		84368BD12083DF0800383A9F /* BlurEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84368BD02083DF0800383A9F /* BlurEffect.swift */; };
+		84368BD32083E73300383A9F /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84368BD22083E73300383A9F /* logo.png */; };
+		84368BD52083E9C300383A9F /* logo1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84368BD42083E9C200383A9F /* logo1.png */; };
+		84368BD72083EDE400383A9F /* start.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84368BD62083EDE300383A9F /* start.jpg */; };
+		84368BD92083EEA500383A9F /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 84368BD82083EEA400383A9F /* star.png */; };
 		84446882207566C300921772 /* UIViewFade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84446881207566C200921772 /* UIViewFade.swift */; };
 		8444688620759CB600921772 /* water.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8444688520759CB600921772 /* water.gif */; };
 		8444688820763EED00921772 /* colour.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8444688720763EED00921772 /* colour.gif */; };
@@ -195,6 +200,11 @@
 		84368BCA2083C06500383A9F /* soundOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = soundOn.png; path = ../../../../Downloads/soundOn.png; sourceTree = "<group>"; };
 		84368BCB2083C06500383A9F /* soundOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = soundOff.png; path = ../../../../Downloads/soundOff.png; sourceTree = "<group>"; };
 		84368BCE2083C57300383A9F /* gameOver.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = gameOver.jpg; path = ../../../../Downloads/gameOver.jpg; sourceTree = "<group>"; };
+		84368BD02083DF0800383A9F /* BlurEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffect.swift; sourceTree = "<group>"; };
+		84368BD22083E73300383A9F /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = ../../../../Downloads/logo.png; sourceTree = "<group>"; };
+		84368BD42083E9C200383A9F /* logo1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo1.png; path = ../../../../Downloads/logo1.png; sourceTree = "<group>"; };
+		84368BD62083EDE300383A9F /* start.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = start.jpg; path = ../../../../Downloads/start.jpg; sourceTree = "<group>"; };
+		84368BD82083EEA400383A9F /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = ../../../../Downloads/star.png; sourceTree = "<group>"; };
 		84446881207566C200921772 /* UIViewFade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewFade.swift; sourceTree = "<group>"; };
 		8444688520759CB600921772 /* water.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = water.gif; path = ../../../../Downloads/water.gif; sourceTree = "<group>"; };
 		8444688720763EED00921772 /* colour.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = colour.gif; path = ../../../../Downloads/colour.gif; sourceTree = "<group>"; };
@@ -534,6 +544,8 @@
 				84F2BA692062A137006F6BF4 /* AppDelegate.swift */,
 				848214362076CB60001607B0 /* gameover.wav */,
 				84F2BA6B2062A137006F6BF4 /* ViewController.swift */,
+				84368BD82083EEA400383A9F /* star.png */,
+				84368BD62083EDE300383A9F /* start.jpg */,
 				8444694A207644F600921772 /* bomb.svg */,
 				84446949207644F600921772 /* bomb17.png */,
 				8444694B207644F700921772 /* dynamite-hi.png */,
@@ -560,6 +572,8 @@
 				84FBFE552075416B0039D24C /* frame9.gif */,
 				84FBFE502075416A0039D24C /* frame10.gif */,
 				84FBFE4E207500890039D24C /* responsiveBackground.swift */,
+				84368BD42083E9C200383A9F /* logo1.png */,
+				84368BD22083E73300383A9F /* logo.png */,
 				84368BCE2083C57300383A9F /* gameOver.jpg */,
 				84368BCB2083C06500383A9F /* soundOff.png */,
 				84368BCA2083C06500383A9F /* soundOn.png */,
@@ -571,6 +585,7 @@
 				84F2BA722062A137006F6BF4 /* LaunchScreen.storyboard */,
 				84F2BA752062A137006F6BF4 /* Info.plist */,
 				84D8D8932062BA4D0016C100 /* DraggedImageView.swift */,
+				84368BD02083DF0800383A9F /* BlurEffect.swift */,
 			);
 			path = CarRacing;
 			sourceTree = "<group>";
@@ -724,6 +739,7 @@
 				844468EC2076429300921772 /* c42.gif in Resources */,
 				84FBFEB6207551E00039D24C /* color17.png in Resources */,
 				84FBFEA2207551070039D24C /* color2.png in Resources */,
+				84368BD92083EEA500383A9F /* star.png in Resources */,
 				844468F62076429300921772 /* c43.gif in Resources */,
 				84FBFEBB20755DE50039D24C /* hammer.png in Resources */,
 				848214392076CCA1001607B0 /* sec.wav in Resources */,
@@ -779,6 +795,7 @@
 				8444690B2076429300921772 /* c71.gif in Resources */,
 				84FBFE612075416C0039D24C /* frame7.gif in Resources */,
 				844469382076441800921772 /* c94.gif in Resources */,
+				84368BD72083EDE400383A9F /* start.jpg in Resources */,
 				84368BC92083A7F100383A9F /* home.png in Resources */,
 				844468A72076415B00921772 /* c17.gif in Resources */,
 				844469362076441800921772 /* c79.gif in Resources */,
@@ -805,11 +822,13 @@
 				84FBFE8520754B0E0039D24C /* snow1.png in Resources */,
 				844468A02076415B00921772 /* c3.gif in Resources */,
 				844468AE2076415B00921772 /* c22.gif in Resources */,
+				84368BD32083E73300383A9F /* logo.png in Resources */,
 				844469022076429300921772 /* c74.gif in Resources */,
 				844468A82076415B00921772 /* c11.gif in Resources */,
 				844469002076429300921772 /* c66.gif in Resources */,
 				844469342076441800921772 /* c90.gif in Resources */,
 				8444690A2076429300921772 /* c58.gif in Resources */,
+				84368BD52083E9C300383A9F /* logo1.png in Resources */,
 				844468A22076415B00921772 /* c9.gif in Resources */,
 				84FBFE9E207551070039D24C /* color7.png in Resources */,
 				84FBFEAF207551E00039D24C /* color19.png in Resources */,
@@ -886,6 +905,7 @@
 				84F2BA6C2062A137006F6BF4 /* ViewController.swift in Sources */,
 				84D8D8942062BA4D0016C100 /* DraggedImageView.swift in Sources */,
 				84446882207566C300921772 /* UIViewFade.swift in Sources */,
+				84368BD12083DF0800383A9F /* BlurEffect.swift in Sources */,
 				84F2BA6A2062A137006F6BF4 /* AppDelegate.swift in Sources */,
 				84FBFE4F207500890039D24C /* responsiveBackground.swift in Sources */,
 			);

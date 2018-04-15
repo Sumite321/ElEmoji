@@ -13,6 +13,7 @@ let width = UIScreen.main.bounds.size.width
 let height = UIScreen.main.bounds.size.height
 let imageViewBackground = UIImageView(frame: CGRect(x:0, y:0, width:width, height:height))
 let homeImage = UIImageView(frame: CGRect(x:0, y:0, width:width, height:height))
+let logoImage = UIImageView(frame: CGRect(x:50, y:70, width:width-100, height:height/5))
 
 
 
@@ -27,17 +28,15 @@ extension UIView {
     }
     
     func addHomeBackground(){
-        homeImage.image = UIImage(named:"emoji.jpg" )
+        homeImage.image = UIImage(named:"emoji.jpg")
         homeImage.tag = 600
         
         
         
         // you can change the content mode:
         homeImage.contentMode = UIViewContentMode.scaleAspectFill
-        
         self.addSubview(homeImage)
         self.sendSubview(toBack: homeImage)
-        
     }
     
     func addBackground() {
@@ -152,6 +151,26 @@ extension UIView {
         imageViewBackground.removeFromSuperview()
     }
 
+    func addLogoImage(){
+        
+        logoImage.image = UIImage(named:"logo1.png" )
+        logoImage.tag = 650
+        
+        
+        
+        // you can change the content mode:
+        //logoImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.addSubview(logoImage)
+        self.sendSubview(toBack: logoImage)
+        self.bringSubview(toFront: logoImage)
+    }
+    
+    func removeLogo(){
+        
+        logoImage.removeFromSuperview()
+        
+    }
+    
 }
 
 

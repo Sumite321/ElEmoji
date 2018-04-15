@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lO8-2c-vYT" customClass="DraggedImageView" customModule="CarRacing" customModuleProvider="target">
-                                <rect key="frame" x="147" y="549" width="80" height="82"/>
+                                <rect key="frame" x="147" y="549" width="66" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>

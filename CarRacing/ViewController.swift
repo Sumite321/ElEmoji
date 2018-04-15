@@ -52,6 +52,8 @@ class ViewController: UIViewController, helperDelegate{
     var showScore:UILabel!
     var showTimer:UILabel!
     var scoreText:UILabel!
+    var bonus:UILabel!
+    var showAppTitle:UILabel!
     //Behaviour variables
     var dynamicAnimator: UIDynamicAnimator!
     var collisionBehavior: UICollisionBehavior!
@@ -77,7 +79,11 @@ class ViewController: UIViewController, helperDelegate{
         drawPlayButton()
         drawHomeImage()
         drawSoundIcon()
-            
+        self.view.addLogoImage()
+        
+        
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,12 +101,15 @@ class ViewController: UIViewController, helperDelegate{
             
             //add all the obstacles cars to the display
             let obstacle = UIImageView(image: nil)
-            obstacle.tag = 50
+            
             score += 5
             
             let random = Int(arc4random_uniform(UInt32(243))) + 53
             let randomWidth = Int(arc4random_uniform(UInt32(15))) + 30
-            let c = Int(arc4random_uniform(3))
+            let c = Int(arc4random_uniform(5))
+            
+            if(c==0){obstacle.tag = 80}else{obstacle.tag = 50}
+            
             obstacle.image = obstacleCars[c]
             obstacle.frame = CGRect(x: random, y: 0, width: randomWidth, height: 60)
             self.view.addSubview(obstacle)
@@ -132,6 +141,7 @@ class ViewController: UIViewController, helperDelegate{
         gameOverImage = UIImageView(image: nil)
         gameOverImage.image = UIImage(named: "gameOver.jpg")
         gameOverImage.frame = UIScreen.main.bounds
+        gameOverImage.addBlurEffect()
         self.view.addSubview(gameOverImage)
         
         self.view.bringSubview(toFront: gameOverImage)
@@ -141,6 +151,10 @@ class ViewController: UIViewController, helperDelegate{
         playAgainButton.layer.cornerRadius = 0.2 * playAgainButton.bounds.size.width
         playAgainButton.clipsToBounds = true
         playAgainButton.setTitle("Play Again", for: .normal)
+        playAgainButton.backgroundColor = .clear
+            
+            playAgainButton.layer.borderWidth = 1
+            playAgainButton.layer.borderColor = UIColor.black.cgColor
         playAgainButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         //playAgainButton.center = self.view.center
 //        // customise the view
@@ -148,9 +162,9 @@ class ViewController: UIViewController, helperDelegate{
         showScore.center = self.view.center
             showScore.text = " Your final score is " + scoreText.text!
             //showScore.font = showScore.font.withSize(40)
-            showScore.backgroundColor = .orange
+            //showScore.backgroundColor = .orange
 
-           showScore.font = UIFont(name: "Verdana-Bold", size: 28.0)
+           showScore.font = UIFont(name: "Verdana-Bold", size: 26.0)
         showScore.textColor = UIColor.white
         showScore.font = showScore.font.withSize(20)
         
@@ -196,6 +210,7 @@ class ViewController: UIViewController, helperDelegate{
         
         self.view.removeHomeImage()
         playButton.removeFromSuperview()
+        self.view.removeLogo()
         
         self.view.addBackground()
         
@@ -208,6 +223,16 @@ class ViewController: UIViewController, helperDelegate{
         scoreText.text = "0"
         scoreText.tag = 300
         
+        // bonus score at the bottom
+        bonus = UILabel(frame: CGRect(x:90, y:UIScreen.main.bounds.size.height - 80, width:180, height:31))
+        bonus.font = scoreText.font.withSize(40)
+        bonus.textColor = .orange
+        
+        self.view.addSubview(bonus)
+        
+        bonus.text = "0"
+        bonus.tag = 350
+        
         //Assign viewController.swift as the delegate for the car image view
         changePlayerImage()
         
@@ -215,12 +240,16 @@ class ViewController: UIViewController, helperDelegate{
         player.myDelegate = self
         player.tag = 200
         //player.center = self.view.c
-        obstacleCars = [UIImage(named: "snow.png")!,
+        
+        
+        obstacleCars = [UIImage(named: "star.png")!,
+                        UIImage(named: "dynamite-hi.png")!,
+                        UIImage(named: "bomb17.png")!,
                         UIImage(named: "dynamite-hi.png")!,
                         UIImage(named: "bomb17.png")!
         ]
         
-        
+
         playMySound()
         playLostSound()
         // timer for obstacles to fall
@@ -282,8 +311,13 @@ class ViewController: UIViewController, helperDelegate{
         
     
         for view in self.view.subviews{
-            if(view.tag == 50 && player.frame.intersects(view.frame)){
-                
+            if((view.tag == 50 || view.tag == 80) && player.frame.intersects(view.frame)){
+                if(view.tag == 80){view.removeFromSuperview()
+                    //score = score + 15
+                    var a:Int? = Int(bonus.text!)
+                    a = a! + 15
+                    bonus.text =  String(a!)
+                }
                 //score = score - (i/1000)
                 i = i+1
                 //print(score)
@@ -291,6 +325,7 @@ class ViewController: UIViewController, helperDelegate{
                 //print(score - (i/300))
                 player.image = UIImage(named:"redface.png")
                 scoreText.text = String(score - (i/40))
+                
                 lostPlayer.play()
                 //playLostSound()
             }
@@ -409,7 +444,9 @@ class ViewController: UIViewController, helperDelegate{
         playButton.setTitle("Play", for: .normal)
         playButton.center = self.view.center
         playButton.addTarget(self, action: #selector(buttonPlay), for: .touchUpInside)
-        
+        playButton.alpha = 0.9
+        playButton.layer.borderWidth = 2
+        playButton.layer.borderColor = UIColor.black.cgColor
         
         self.view.addSubview(playButton)
     }
