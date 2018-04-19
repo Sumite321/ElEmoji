@@ -2,7 +2,7 @@ Extra information
 
 * Trello: https://trello.com/b/4tG2PMIk/elemoji-ios
 * GitHub: https://github.com/Sumite321/15004333
-* Video demo: https://www.youtube.com/watch?v=8BRSWij8dxg&feature=youtu.be
+* Video demo: https://youtu.be/ds-T19IPEd0
 
 
 Operating instructions
