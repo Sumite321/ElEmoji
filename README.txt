@@ -5,7 +5,7 @@ Extra information
 * Video demo: https://www.youtube.com/watch?v=8BRSWij8dxg&feature=youtu.be
 
 
-Operating instructions
+<b>Operating instructions</b>
 
 * Xcode 9
 * Swift 3.3
